@@ -1,4 +1,4 @@
-from ckeditor.fields import RichTextField
+
 from django.db import models
 # Create your models here.
 label = (
@@ -7,7 +7,7 @@ label = (
 	)
 class product(models.Model):
 	title = models.CharField(max_length = 255)
-	descript = RichTextField()
+	descript = models.TextField()
 	price = models.FloatField()
 	image = models.FileField()
 	label = models.TextField(choices=label)

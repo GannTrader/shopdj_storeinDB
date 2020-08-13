@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import product, cart
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -67,18 +67,19 @@ class loginUser(View):
 		password = request.POST['password']
 
 		user = authenticate(request, username=username, password=password)
-	    if user is not None:
-	    	login(request, user)
-	    	return redirect('shop:listproduct')
-	    else:
-	    	pass
+		if user is not None :
+			login(request, user)
+			return redirect('shop:listproduct')
+		else:
+			pass
 
+def logoutUser(request):
+	logout(request)
+	return redirect('shop:listproduct')
 
-def logout(request):
-	pass
-
-def signup(request):
-	signup_Form = signupForm
-	return render(request, 'shop/signup.html', {'signup_Form':signup_Form})
+class signupUser(View):
+	def get(self, request):
+		signup_Form = signupForm
+		return render(request, 'shop/signup.html', {'signup_Form':signup_Form})
 
 
