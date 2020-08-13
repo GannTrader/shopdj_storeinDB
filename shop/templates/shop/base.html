@@ -16,6 +16,10 @@
 
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -30,11 +34,21 @@
 
 	  <!-- Navbar links -->
 	  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-	    <ul class="navbar-nav">
+	    <ul class="navbar-nav navbar-left">
 	      <li class="nav-item">
 	        <a class="nav-link" href="{% url 'shop:viewCart' %}">Cart</a>
 	      </li>
 	    </ul>
+	    {% if request.user.is_authenticated %}
+	    <ul class="nav navbar-nav navbar-right">
+	      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+	    </ul>
+	    {% else %}
+	    <ul class="nav navbar-nav navbar-right">
+	      <li><a href="{% url 'shop:login' %}"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+	      <li><a href="{% url 'shop:signup' %}"><span class="glyphicon glyphicon-user"></span> SignUp</a></li>
+	    </ul>
+	    {% endif %}
 	  </div>
 	</nav>
 

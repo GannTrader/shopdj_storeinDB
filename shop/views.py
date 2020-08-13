@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
+from .forms import loginForm, signupForm
+from django.views import View
 
 listcart = {}
 # Create your views here.
@@ -13,7 +15,7 @@ def index(request):
 	return render(request, 'shop/product_list.html', {'products':products})
 
 
-@login_required
+@login_required(login_url='/login/')
 def insertCart(request, id):
 	item = get_object_or_404(product, id=id)
 	itemCart = cart.objects.filter(product=item, user=request.user)
@@ -34,7 +36,7 @@ def insertCart(request, id):
 
 	return redirect('shop:listproduct')
 
-@login_required
+@login_required(login_url='/login/')
 def viewCart(request):
 	listcart = cart.objects.all().filter(user=request.user)
 	total = 0
@@ -42,15 +44,41 @@ def viewCart(request):
 		total += item.price * item.quantity
 	return render(request, 'shop/viewcart.html', {'listcart':listcart, 'total': total})
 
-@login_required
+@login_required(login_url='/login/')
 def updateCart(request, id):
 	qty = request.POST['qty']	
 	cart.objects.filter(idsp=id).update(quantity=qty)
 	messages.success(request, 'bạn vừa thay đổi số lượng sản phẩm')
 	return redirect('shop:viewCart')
 
-@login_required
+@login_required(login_url='/login/')
 def deleteCart(request, id):
 	cart.objects.filter(idsp=id).delete()
 	messages.warning(request, 'bạn vừa xóa sp trong giỏ')
 	return redirect('shop:viewCart')
+
+class loginUser(View):
+	def get(self, request):
+		login_form = loginForm
+		return render(request, 'shop/login.html', {'login_form':login_form})
+
+	def post(self, request):
+		username = request.POST['username']
+		password = request.POST['password']
+
+		user = authenticate(request, username=username, password=password)
+	    if user is not None:
+	    	login(request, user)
+	    	return redirect('shop:listproduct')
+	    else:
+	    	pass
+
+
+def logout(request):
+	pass
+
+def signup(request):
+	signup_Form = signupForm
+	return render(request, 'shop/signup.html', {'signup_Form':signup_Form})
+
+

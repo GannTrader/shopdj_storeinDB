@@ -8,8 +8,8 @@
 		  <div class="card-body">
 		    <h4 class="card-title">{{item.title}}</h4>
 		    <p class="card-text"><img src="media/{{item.image}}" width="50%"></p>
-		    <p>{{item.descript}}</p>
-			<p>Price: ${{item.price}}</p>
+		    <p>{{item.descript | safe }}</p>
+			<p class="font-weight-bold text-danger">Price: ${{item.price}}</p>
 			<a href="{% url 'shop:insertCart' item.id %}" class="btn btn-success">AddtoCart</a>
 		  </div>
 		</div>
