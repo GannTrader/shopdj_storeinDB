@@ -17,9 +17,14 @@
 			{% csrf_token %}
 	      <tr>
 	        <td>{{ item.product }}</td>
-	        <td><input type="number" class="form-control" name="qty" min="1" value="{{ item.quantity }}"></td>
+	        <td>
+	        	<input type="number" class="form-control" name="qty" min="1" value="{{ item.quantity }}">
+	        </td>
 	        <td>${{item.price}}</td>
-	        <td><input type="submit" value="Update Quantity" class="btn btn-danger"></td>
+	        <td>
+	        	
+	        	<input type="submit" value="Update Quantity" class="btn btn-danger">
+	        </td>
 	        <td><a href="{% url 'shop:deleteCart' item.idsp %}" class="btn btn-primary">Delete</a></td>
 	      </tr>  
       	</form>  

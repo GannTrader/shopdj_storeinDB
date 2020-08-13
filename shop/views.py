@@ -81,5 +81,20 @@ class signupUser(View):
 	def get(self, request):
 		signup_Form = signupForm
 		return render(request, 'shop/signup.html', {'signup_Form':signup_Form})
+	def post(self, request):
+		username = request.POST['username']
+		email = request.POST['email']
+		password = request.POST['password']
+		re_password = request.POST['re_password']
+
+		if password==re_password:
+			user = User.objects.create_user(username, email, password)
+			user.save()
+			return redirect('shop:login')
+
+		else:
+			messages.warning(request, 'vui lòng nhập mật khẩu trùng khớp nha bạn')
+			return redirect('shop:signup')
+
 
 
