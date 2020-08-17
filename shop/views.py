@@ -46,11 +46,10 @@ def viewCart(request):
 
 @login_required(login_url='/login/')
 def updateCart(request):
-	id = request.POST.get('id')
-	number = request.POST.get('number')
+	id = request.POST['id']
+	number = request.POST['number']
 
 	cart.objects.filter(idsp=id).update(quantity=number)
-
 	return redirect('shop:viewCart')
 
 @login_required(login_url='/login/')

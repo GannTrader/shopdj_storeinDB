@@ -15,7 +15,7 @@
 	      <tr>
 	        <td>{{ item.product }}</td>
 	        <td>
-	        	<input type="number" class="form-control" id="qty_{{item.id}}" min="1" value="{{ item.quantity }}" onclick="UpdateCart({{item.id}})" >
+	        	<input type="number" class="form-control" id="qty_{{item.idsp}}" min="1" value="{{ item.quantity }}" onclick="UpdateCart( {{item.idsp}} )" >
 	        </td>
 	        <td>${{item.price}}</td>
 	        <td><a href="{% url 'shop:deleteCart' item.idsp %}" class="btn btn-primary">Delete</a></td>
