@@ -45,10 +45,12 @@ def viewCart(request):
 	return render(request, 'shop/viewcart.html', {'listcart':listcart, 'total': total})
 
 @login_required(login_url='/login/')
-def updateCart(request, id):
-	qty = request.POST['qty']	
-	cart.objects.filter(idsp=id).update(quantity=qty)
-	messages.success(request, 'bạn vừa thay đổi số lượng sản phẩm')
+def updateCart(request):
+	id = request.POST.get('id')
+	number = request.POST.get('number')
+
+	cart.objects.filter(idsp=id).update(quantity=number)
+
 	return redirect('shop:viewCart')
 
 @login_required(login_url='/login/')

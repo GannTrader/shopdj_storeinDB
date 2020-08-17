@@ -7,27 +7,19 @@
 	        <th>Sản phẩm</th>
 	        <th>Số lượng</th>
 	        <th>Giá</th>
-	        <th>Update</th>
 	        <th>Xóa</th>
 	      </tr>
 	    </thead>
 	    <tbody>
 		{% for item in listcart %}
-		<form action="{% url 'shop:updateCart' item.idsp %}" method="post">
-			{% csrf_token %}
 	      <tr>
 	        <td>{{ item.product }}</td>
 	        <td>
-	        	<input type="number" class="form-control" name="qty" min="1" value="{{ item.quantity }}">
+	        	<input type="number" class="form-control" id="qty_{{item.id}}" min="1" value="{{ item.quantity }}" onclick="UpdateCart({{item.id}})" >
 	        </td>
 	        <td>${{item.price}}</td>
-	        <td>
-	        	
-	        	<input type="submit" value="Update Quantity" class="btn btn-danger">
-	        </td>
 	        <td><a href="{% url 'shop:deleteCart' item.idsp %}" class="btn btn-primary">Delete</a></td>
 	      </tr>  
-      	</form>  
 		{% endfor %}	
 	    </tbody>
 	  </table>	

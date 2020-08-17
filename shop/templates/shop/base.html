@@ -70,6 +70,18 @@
 	$(document).ready(function(){
 		$(".alert").fadeOut(3000);
 	});
+
+	function UpdateCart(id){
+		number = $("#qty_"+id).val();
+		$.post(
+			"{% url 'shop:updateCart' %}",
+			{'id': id, 'number': number, 'csrfmiddlewaretoken':'{{csrf_token}}' },
+			function(data){
+				window.location.href = "{% url 'shop:viewCart' %}";
+			}
+		);
+	}
+
 </script>
 </body>
 </html>
